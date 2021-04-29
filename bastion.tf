@@ -31,7 +31,7 @@ module "bastion" {
 
   ami_owners = ["099720109477"] // ubuntu
   ami_filter = {
-    name                = ["*ubuntu-xenial*"]
+    name                = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
     architecture        = ["x86_64"]
     virtualization-type = ["hvm"]
   }
