@@ -18,6 +18,13 @@ locals {
       from_port   = 22
       to_port     = 22
       cidr_blocks = var.allowed_cidr_blocks
+    },
+    {
+      type             = "ingress"
+      protocol         = "tcp"
+      from_port        = 22
+      to_port          = 22
+      ipv6_cidr_blocks = var.allowed_ipv6_cidr_blocks
     }
   ]
 }
