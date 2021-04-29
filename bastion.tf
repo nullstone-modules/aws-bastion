@@ -3,14 +3,43 @@ resource "aws_key_pair" "admin" {
   public_key = var.ssh_public_key
 }
 
+locals {
+  base_rules = [
+    {
+      type        = "egress"
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+
+  ingress_rules = [for cidr in var.allowed_cidr_blocks : {
+    type        = "ingress"
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    cidr_blocks = [cidr]
+  }]
+
+  security_group_rules = concat(local.base_rules, local.ingress_rules)
+}
+
 module "bastion" {
   source  = "cloudposse/ec2-bastion-server/aws"
   version = "0.26.0"
 
-  ami                         = "ami-0f40c8f97004632f9"
+  ami_owners = ["099720109477"] // ubuntu
+  ami_filter = {
+    name                = ["*ubuntu-xenial*"]
+    architecture        = ["x86_64"]
+    virtualization-type = ["hvm"]
+  }
+
+  security_group_rules = [local.security_group_rules]
+
   ssh_user                    = "ubuntu"
   key_name                    = aws_key_pair.admin.key_name
-  allowed_cidr_blocks         = var.allowed_cidr_blocks
   namespace                   = data.ns_workspace.this.slashed_name
   name                        = "bastion-${random_string.resource_suffix.result}"
   subnets                     = data.ns_connection.network.outputs.public_subnet_ids
