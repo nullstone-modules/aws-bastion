@@ -6,24 +6,27 @@ resource "aws_key_pair" "admin" {
 locals {
   security_group_rules = [
     {
-      type        = "egress"
-      from_port   = 0
-      to_port     = 0
-      protocol    = -1
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    {
-      type        = "ingress"
-      protocol    = "tcp"
-      from_port   = 22
-      to_port     = 22
-      cidr_blocks = var.allowed_cidr_blocks
+      type             = "egress"
+      from_port        = 0
+      to_port          = 0
+      protocol         = -1
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = null
     },
     {
       type             = "ingress"
       protocol         = "tcp"
       from_port        = 22
       to_port          = 22
+      cidr_blocks      = var.allowed_cidr_blocks
+      ipv6_cidr_blocks = null
+    },
+    {
+      type             = "ingress"
+      protocol         = "tcp"
+      from_port        = 22
+      to_port          = 22
+      cidr_blocks      = null
       ipv6_cidr_blocks = var.allowed_ipv6_cidr_blocks
     }
   ]
@@ -40,7 +43,7 @@ module "bastion" {
     virtualization-type = ["hvm"]
   }
 
-  security_group_rules = [local.security_group_rules]
+  security_group_rules = local.security_group_rules
 
   ssh_user                    = "ubuntu"
   key_name                    = aws_key_pair.admin.key_name
