@@ -4,25 +4,22 @@ resource "aws_key_pair" "admin" {
 }
 
 locals {
-  base_rules = [
+  security_group_rules = [
     {
       type        = "egress"
       from_port   = 0
       to_port     = 0
       protocol    = -1
       cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      type        = "ingress"
+      protocol    = "tcp"
+      from_port   = 22
+      to_port     = 22
+      cidr_blocks = var.allowed_cidr_blocks
     }
   ]
-
-  ingress_rules = [for cidr in var.allowed_cidr_blocks : {
-    type        = "ingress"
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    cidr_blocks = [cidr]
-  }]
-
-  security_group_rules = concat(local.base_rules, local.ingress_rules)
 }
 
 module "bastion" {
