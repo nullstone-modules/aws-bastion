@@ -1,3 +1,3 @@
 output "public_ip" {
-  value = ""
+  value = module.bastion.public_ip
 }
