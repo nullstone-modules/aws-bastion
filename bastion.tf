@@ -47,7 +47,6 @@ module "bastion" {
 
   ssh_user                    = "ubuntu"
   key_name                    = aws_key_pair.admin.key_name
-  namespace                   = data.ns_workspace.this.slashed_name
   name                        = "bastion-${random_string.resource_suffix.result}"
   subnets                     = data.ns_connection.network.outputs.public_subnet_ids
   vpc_id                      = data.ns_connection.network.outputs.vpc_id
