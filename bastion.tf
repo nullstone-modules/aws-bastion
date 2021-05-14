@@ -34,7 +34,7 @@ locals {
 
 module "bastion" {
   source  = "cloudposse/ec2-bastion-server/aws"
-  version = "0.26.0"
+  version = "~>0.26.0"
 
   ami_owners = ["099720109477"] // ubuntu
   ami_filter = {
