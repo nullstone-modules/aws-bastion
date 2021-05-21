@@ -1,5 +1,5 @@
 resource "aws_key_pair" "admin" {
-  key_name   = "admin-${random_string.resource_suffix.result}"
+  key_name   = "admin-${local.resource_name}"
   public_key = var.ssh_public_key
 }
 
