@@ -20,11 +20,3 @@ The IPv6 IP Ranges for users that are allowed to access this bastion from the in
 By default, this is empty which allows no IPv6 access to the box.
 EOF
 }
-
-resource "random_string" "resource_suffix" {
-  length  = 5
-  lower   = true
-  upper   = false
-  number  = false
-  special = false
-}
