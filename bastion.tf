@@ -48,9 +48,8 @@ module "bastion" {
   ssh_user                    = "ubuntu"
   key_name                    = aws_key_pair.admin.key_name
   name                        = "bastion-${random_string.resource_suffix.result}"
-  subnets                     = data.ns_connection.network.outputs.public_subnet_ids
-  vpc_id                      = data.ns_connection.network.outputs.vpc_id
-  security_groups             = compact([local.db_user_security_group_id])
+  subnets                     = local.public_subnet_ids
+  vpc_id                      = local.vpc_id
   associate_public_ip_address = true
   assign_eip_address          = false
 }
