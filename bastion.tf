@@ -54,3 +54,8 @@ module "bastion" {
   associate_public_ip_address = true
   assign_eip_address          = false
 }
+
+locals {
+  security_group_id = module.bastion.security_group_id
+  role_name         = module.bastion.role
+}

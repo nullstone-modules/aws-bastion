@@ -1,0 +1,14 @@
+org_name: nullstone
+name: aws-bastion
+friendly_name: Bastion
+description: Bastion box for connectivity to private AWS network
+category: app
+subcategory: server
+platform: ec2
+subplatform:
+type: service/aws-ec2
+appCategories: []
+layer: service
+is_public: false
+provider_types:
+    - aws
