@@ -10,8 +10,8 @@ locals {
 
 locals {
   app_metadata = tomap({
-    // Inject app metadata into capabilities here (e.g. security_group_name, role_name)
-    security_group_id = local.security_group_id
-    role_name         = local.role_name
+    // Inject app metadata into capabilities here (e.g. security_group_id, role_name)
+    role_name         = aws_iam_role.this.name
+    security_group_id = aws_security_group.this.id
   })
 }

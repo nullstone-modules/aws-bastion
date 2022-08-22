@@ -1,3 +1,8 @@
+resource "aws_iam_instance_profile" "this" {
+  name = local.resource_name
+  role = aws_iam_role.this.name
+}
+
 resource "aws_key_pair" "admin" {
   key_name   = "admin-${local.resource_name}"
   public_key = var.ssh_public_key
@@ -32,29 +37,24 @@ locals {
   security_group_rules = concat(local.egress_rules, local.ipv4_rules, local.ipv6_rules)
 }
 
-module "bastion" {
-  source  = "cloudposse/ec2-bastion-server/aws"
-  version = "~>0.26.0"
-
-  ami_owners = ["099720109477"] // ubuntu
-  ami_filter = {
-    name                = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
-    architecture        = ["x86_64"]
-    virtualization-type = ["hvm"]
-  }
-
-  security_group_rules = local.security_group_rules
-
-  ssh_user                    = "ubuntu"
-  key_name                    = aws_key_pair.admin.key_name
-  name                        = "bastion-${random_string.resource_suffix.result}"
-  subnets                     = local.public_subnet_ids
-  vpc_id                      = local.vpc_id
+resource "aws_instance" "this" {
+  ami                         = data.aws_ami.this.id
+  instance_type               = "t3.nano"
+  subnet_id                   = local.public_subnet_ids[0]
+  vpc_security_group_ids      = [aws_security_group.this.id]
+  iam_instance_profile        = aws_iam_instance_profile.this.name
+  disable_api_termination     = false
+  monitoring                  = false
+  user_data                   = local.user-data
+  tags                        = merge(local.tags, { Name = local.resource_name })
   associate_public_ip_address = true
+  security_group_rules        = local.security_group_rules
+  key_name                    = aws_key_pair.admin.key_name
   assign_eip_address          = false
-}
 
-locals {
-  security_group_id = module.bastion.security_group_id
-  role_name         = module.bastion.role
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_put_response_hop_limit = 1
+    http_tokens                 = "required"
+  }
 }
