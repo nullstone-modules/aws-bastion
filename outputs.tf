@@ -4,7 +4,7 @@ locals {
   // Typically, they are created through capabilities attached to the application
   // If this module has URLs, add them here as list(string)
   additional_private_urls = []
-  additional_public_urls  = ["ssh://${module.bastion.ssh_user}@${module.bastion.public_ip}"]
+  additional_public_urls  = ["ssh://ubuntu@${aws_instance.this.public_ip}"]
 }
 
 output "private_urls" {
@@ -18,9 +18,9 @@ output "public_urls" {
 }
 
 output "public_ip" {
-  value = module.bastion.public_ip
+  value = aws_instance.this.public_ip
 }
 
 output "ssh_user" {
-  value = module.bastion.ssh_user
+  value = "ubuntu"
 }

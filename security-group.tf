@@ -17,3 +17,25 @@ resource "aws_security_group_rule" "this-https-to-world" {
   to_port           = 443
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+resource "aws_security_group_rule" "world-ssh-to-this" {
+  count             = length(var.allowed_cidr_blocks) == 0 ? 0 : 1
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 22
+  to_port           = 22
+  cidr_blocks       = var.allowed_cidr_blocks
+  ipv6_cidr_blocks  = null
+  security_group_id = aws_security_group.this.id
+}
+
+resource "aws_security_group_rule" "world-ipv6-ssh-to-this" {
+  count             = length(var.allowed_ipv6_cidr_blocks) == 0 ? 0 : 1
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 22
+  to_port           = 22
+  cidr_blocks       = var.allowed_ipv6_cidr_blocks
+  ipv6_cidr_blocks  = null
+  security_group_id = aws_security_group.this.id
+}
