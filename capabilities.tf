@@ -1,55 +1,26 @@
-// This file is replaced by code-generation using 'capabilities.tf.tmpl'
-// This file helps app module creators define a contract for what types of capability outputs are supported.
-locals {
-  capabilities = {
-    env = [
-      {
-        name  = ""
-        value = ""
-      }
-    ]
+provider "ns" {
+  capability_id = 509
+  alias         = "cap_509"
+}
 
-    secrets = [
-      {
-        name  = ""
-        value = ""
-      }
-    ]
+module "cap_509" {
+  source  = "api.nullstone.io/nullstone/aws-postgres-access/any"
+  
 
-    // private_urls follows a wonky syntax so that we can send all capability outputs into the merge module
-    // Terraform requires that all members be of type list(map(any))
-    // They will be flattened into list(string) when we output from this module
-    private_urls = [
-      {
-        url = ""
-      }
-    ]
+  app_metadata = local.app_metadata
+  database_name = jsondecode("\"\"")
 
-    // public_urls follows a wonky syntax so that we can send all capability outputs into the merge module
-    // Terraform requires that all members be of type list(map(any))
-    // They will be flattened into list(string) when we output from this module
-    public_urls = [
-      {
-        url = ""
-      }
-    ]
-
-    permissions = [
-      {
-        // required
-        sid_prefix = ""
-        action     = "lambda:InvokeFunction" // lambda:InvokeFunction | lambda:GetFunction
-        principal  = ""
-
-        // optional
-        source_arn             = ""
-        source_account         = ""
-        event_source_token     = ""
-        qualifier              = ""
-        revision_id            = ""
-        principal_org_id       = ""
-        function_url_auth_type = ""
-      }
-    ]
+  providers = {
+    ns = ns.cap_509
   }
+}
+
+module "caps" {
+  source  = "nullstone-modules/cap-merge/ns"
+  modules = local.modules
+}
+
+locals {
+  modules       = [module.cap_509]
+  capabilities  = module.caps.outputs
 }
