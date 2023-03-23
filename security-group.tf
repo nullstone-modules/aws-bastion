@@ -41,7 +41,6 @@ resource "aws_security_group_rule" "world-ipv6-ssh-to-this" {
   protocol          = "tcp"
   from_port         = 22
   to_port           = 22
-  cidr_blocks       = [each.key]
-  ipv6_cidr_blocks  = null
+  ipv6_cidr_blocks  = [each.key]
   security_group_id = aws_security_group.this.id
 }
