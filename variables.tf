@@ -1,6 +1,10 @@
 variable "ssh_public_key" {
   type        = string
-  description = "The SSH Public Key to authorize for access to the bastion box."
+  description = <<EOF
+The initial SSH public key to add to the bastion's authorized_keys file.
+This parameter is only used at launch time, changing it will have no effect.
+To add additional keys, log into the bastion and add them to the authorized_keys file.
+EOF
 }
 
 variable "allowed_cidr_blocks" {
