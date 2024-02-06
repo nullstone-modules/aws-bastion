@@ -21,6 +21,7 @@ data "aws_iam_policy_document" "adminer" {
     resources = [
       aws_instance.this.arn,
       "arn:aws:ssm:us-east-1::document/AWS-StartSSHSession",
+      "arn:aws:ssm:us-east-1::document/AWS-StartPortForwardingSessionToRemoteHost",
     ]
   }
 }
