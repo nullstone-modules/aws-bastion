@@ -24,3 +24,12 @@ The IPv6 IP Ranges for users that are allowed to access this bastion from the in
 By default, this is empty which allows no IPv6 access to the box.
 EOF
 }
+
+variable "instance_type" {
+  type        = string
+  default     = "t3.nano"
+  description = <<EOF
+Instance Type that dictates CPU, Memory, network bandwidth, and file storage type and bandwidth.
+See https://aws.amazon.com/ec2/instance-types/ for EC2 instance types.
+EOF
+}

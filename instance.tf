@@ -10,7 +10,7 @@ resource "aws_key_pair" "admin" {
 
 resource "aws_instance" "this" {
   ami                         = data.aws_ami.this.id
-  instance_type               = "t3.nano"
+  instance_type               = var.instance_type
   subnet_id                   = local.public_subnet_ids[0]
   vpc_security_group_ids      = [aws_security_group.this.id]
   iam_instance_profile        = aws_iam_instance_profile.this.name
