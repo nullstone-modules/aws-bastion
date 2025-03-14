@@ -1,3 +1,18 @@
+# 0.6.7 (Mar 13, 2025)
+* Added support for multiple SSH keys.
+
+# 0.6.6 (Aug 23, 2024)
+* Use aws v5.63.0.
+
+# 0.6.5 (Aug 23, 2024)
+* Upgraded terraform modules.
+
+# 0.6.4 (Aug 23, 2024)
+* Added terraform lockfile.
+
+# 0.6.3 (Mar 06, 2024)
+* Added variable for configuring instance_type.
+
 # 0.6.2 (Feb 06, 2024)
 * Enable port forwarding through `adminer`.
 

@@ -16,7 +16,7 @@ resource "aws_instance" "this" {
   iam_instance_profile        = aws_iam_instance_profile.this.name
   disable_api_termination     = false
   monitoring                  = false
-  user_data                   = local.user-data
+  user_data                   = local.cloud_init
   tags                        = merge(local.tags, { Name = local.resource_name })
   associate_public_ip_address = true
   key_name                    = aws_key_pair.admin.key_name
