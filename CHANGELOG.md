@@ -1,3 +1,6 @@
+# 0.6.8 (Mar 17, 2025)
+* Set var.ssh_public_keys default to [].
+
 # 0.6.7 (Mar 13, 2025)
 * Added support for multiple SSH keys.
 

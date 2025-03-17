@@ -5,7 +5,7 @@ locals {
         name                = "ubuntu"
         sudo                = "ALL=(ALL) NOPASSWD:ALL"
         shell               = "/bin/bash"
-        ssh-authorized-keys = var.ssh_public_keys
+        ssh-authorized-keys = coalesce(var.ssh_public_keys, [])
       }
     ]
     runcmd = [

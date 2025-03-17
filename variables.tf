@@ -9,6 +9,7 @@ EOF
 
 variable "ssh_public_keys" {
   type        = list(string)
+  default     = []
   description = <<EOF
 A list of additional SSH public keys to add to the bastion's authorized_keys file.
 This parameter only affects the instance at launch time.
