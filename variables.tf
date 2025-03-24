@@ -7,6 +7,7 @@ To add additional keys, log into the bastion and add them to the authorized_keys
 EOF
 }
 
+/*
 variable "ssh_public_keys" {
   type        = list(string)
   default     = []
@@ -16,6 +17,7 @@ This parameter only affects the instance at launch time.
 To change keys, you can recreate the bastion or log into the bastion and add keys to `/home/ubuntu/.ssh/authorized_keys`.
 EOF
 }
+*/
 
 variable "allowed_cidr_blocks" {
   type        = list(string)

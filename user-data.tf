@@ -1,5 +1,6 @@
 locals {
   user_data = {
+    /*
     users = [
       {
         name                = "ubuntu"
@@ -8,6 +9,7 @@ locals {
         ssh-authorized-keys = coalesce(var.ssh_public_keys, [])
       }
     ]
+    */
     runcmd = [
       "systemctl enable amazon-ssm-agent",
       "systemctl start  amazon-ssm-agent",
