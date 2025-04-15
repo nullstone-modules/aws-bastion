@@ -1,3 +1,6 @@
+# 0.6.10 (Apr 15, 2025)
+* Allowed ports 80, 443 outbound so that users can install Linux packages.
+
 # 0.6.9 (Mar 24, 2025)
 * Revert support for multiple SSH keys to refine workflow. 
 
