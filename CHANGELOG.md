@@ -1,3 +1,6 @@
+# 0.7.0 (Jun 04, 2025)
+* Upgraded Ubuntu AMI to 24.04 LTS.
+
 # 0.6.10 (Apr 15, 2025)
 * Allowed ports 80, 443 outbound so that users can install Linux packages.
 
