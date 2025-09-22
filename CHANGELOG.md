@@ -1,3 +1,6 @@
+# 0.8.0 (Sep 22, 2025)
+* Upgraded terraform providers.
+
 # 0.7.0 (Jun 04, 2025)
 * Upgraded Ubuntu AMI to 24.04 LTS.
 
