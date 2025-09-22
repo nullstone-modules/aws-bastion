@@ -11,3 +11,4 @@ subplatform: ""
 type: service/aws-ec2
 appCategories: []
 is_public: true
+tool_name: "terraform"
