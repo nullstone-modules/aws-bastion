@@ -1,3 +1,6 @@
+# 0.8.1 (Sep 26, 2025)
+* Fixed lockfile.
+
 # 0.8.0 (Sep 22, 2025)
 * Upgraded terraform providers.
 
