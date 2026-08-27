@@ -4,6 +4,7 @@ friendly_name: Bastion
 description: Bastion box for connectivity to private AWS network
 category: app
 subcategory: server
+app_type: packaged
 provider_types:
     - aws
 platform: ec2
