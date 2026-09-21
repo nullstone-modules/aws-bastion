@@ -1,3 +1,6 @@
+# 0.9.1 (Sep 21, 2026)
+* Tagged the instance root EBS volume with the workspace tags. Provider `default_tags` only reach the volume at instance creation.
+
 # 0.9.0 (Jun 19, 2026)
 * Upgraded `nullstone-io/ns` provider to `~> 0.11.0`.
 * Used `aws_tags` from `data.ns_workspace` to tag all resources via provider `default_tags`.

@@ -20,4 +20,9 @@ resource "aws_instance" "this" {
   tags                        = merge(local.tags, { Name = local.resource_name })
   associate_public_ip_address = true
   key_name                    = aws_key_pair.admin.key_name
+
+  // Provider default_tags only reach the root volume at instance creation; tag it explicitly.
+  root_block_device {
+    tags = merge(local.tags, { Name = local.resource_name })
+  }
 }
